@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>STOP WATCH</title>
+<!-- author: gandhi amarnadh tadiparthi  -->
+<script src="http://code.jquery.com/jquery-2.2.4.min.js"
+	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+	crossorigin="anonymous"></script>
+
+<script>
+	var myvar1;
+	var myvar2;
+	var userinput;
+	var utc;
+	var d_0;
+	var input_1;
+	var input_2;
+	var day_time;
+	var hour_time;
+	var minute_time;
+	var second_time;
+
+	function callread() {
+
+		userinput = document.getElementById("inseconds").value;
+
+	}
+	function call1() {
+		clearInterval(myvar1);
+		myvar1 = setInterval(myTimer1, 1000);
+		input_1 = 0;
+
+		document.getElementById("clock1_reset").disabled = false;
+
+		if (document.getElementById("clock1_p")) {
+			document.getElementById("clock1_p").disabled = false;
+
+		}
+
+		else if (document.getElementById("clock1_s")) {
+			document.getElementById("clock1_s").setAttribute("onclick",
+					"call1_p()");
+			document.getElementById("clock1_s").innerHTML = "pause";
+			document.getElementById("clock1_s").id = "clock1_p";
+
+		}
+	};
+	function call1_reset() {
+
+		clearInterval(myvar1);
+		document.getElementById("clock1").innerHTML = 0 + " days" + 0
+				+ " Hours" + 0 + " Minutes" + 0 + " Seconds";
+		input_1 = 0;
+
+		document.getElementById("clock1_p").disabled = true;
+	};
+	function call1_p() {
+		clearInterval(myvar1);
+		document.getElementById("clock1_p")
+				.setAttribute("onclick", "call1_s()");
+		document.getElementById("clock1_p").innerHTML = "start";
+		document.getElementById("clock1_p").id = "clock1_s";
+		document.getElementById("clock1_reset").disabled = true;
+	};
+	function call1_s() {
+		myvar1 = setInterval(myTimer1, 1000);
+		document.getElementById("clock1_s")
+				.setAttribute("onclick", "call1_p()");
+		document.getElementById("clock1_s").innerHTML = "pause";
+		document.getElementById("clock1_s").id = "clock1_p";
+		document.getElementById("clock1_reset").disabled = false;
+	};
+	function call2() {
+
+		clearInterval(myvar2);
+
+		myvar2 = setInterval(myTimer2, 1000);
+
+		input_2 = userinput;
+
+		document.getElementById("clock2_reset").disabled = false;
+		if (document.getElementById("clock2_p"))
+			document.getElementById("clock2_p").disabled = false;
+
+		else if (document.getElementById("clock2_s")) {
+			document.getElementById("clock2_s").setAttribute("onclick",
+					"call2_p()");
+			document.getElementById("clock2_s").innerHTML = "pause";
+			document.getElementById("clock2_s").id = "clock2_p";
+		}
+
+	};
+	function call2_reset() {
+
+		clearInterval(myvar2);
+		document.getElementById("clock2").innerHTML = 0 + " days" + 0
+				+ " Hours" + 0 + " Minutes" + 0 + " Seconds";
+		input_2 = userinput;
+
+		document.getElementById("clock2_p").disabled = true;
+	};
+	function call2_p() {
+		clearInterval(myvar2);
+		document.getElementById("clock2_p")
+				.setAttribute("onclick", "call2_s()");
+		document.getElementById("clock2_p").innerHTML = "start";
+		document.getElementById("clock2_p").id = "clock2_s";
+		document.getElementById("clock2_reset").disabled = true;
+	};
+	function call2_s() {
+		myvar2 = setInterval(myTimer2, 1000);
+		document.getElementById("clock2_s")
+				.setAttribute("onclick", "call2_p()");
+		document.getElementById("clock2_s").innerHTML = "pause";
+		document.getElementById("clock2_s").id = "clock2_p";
+		document.getElementById("clock2_reset").disabled = false;
+	};
+
+	function myTimer1() {
+		input_1 = input_1 + 1; // as this is countup variable input_1 is initialised at 0 and linearly incremented till given seconds is matched 
+		var days_1 = Math.round(input_1 / 86400); //no.of rounded days involved in given input of seconds is identified
+		var inaday_1 = (input_1 - days_1 * 86400) * 1000; // the input seconds are removed of no.of rounded days 
+		d_0 = new Date();
+		utc = Math.abs(d_0.getTimezoneOffset() * 60000); //computing modulus of local time difference to utc
+
+		var d_1 = new Date(utc + inaday_1); // new date object w.r.t js utc  default jan 1 1970 00:00  is being created making the new time to (00:00+ utc time difference + input less than a day seconds) 
+		// plural and singular forms controlled below
+		if (days_1 > 1) {
+			day_time = days_1 + " days ";
+		} else {
+			day_time = days_1 + " day ";
+		}
+
+		if (d_1.getHours() > 1)
+			hour_time = d_1.getHours() + " hours ";
+		else
+			hour_time = d_1.getHours() + " hour ";
+		if (d_1.getMinutes() > 1)
+			minute_time = d_1.getMinutes() + " minutes ";
+		else
+			minute_time = d_1.getMinutes() + " minute ";
+		if (d_1.getSeconds() > 1)
+			second_time = d_1.getSeconds() + " seconds ";
+		else
+			second_time = d_1.getSeconds() + " second ";
+
+		if (input_1 <= userinput)
+			document.getElementById("clock1").innerHTML = day_time + hour_time
+					+ minute_time + second_time;
+		else {
+
+			clearInterval(myvar1);
+			document.getElementById("clock1_p").disabled = true;
+			document.getElementById("clock1_reset").disabled = true;
+		}
+	};
+	function myTimer2() {
+		input_2 = input_2 - 1;
+		var days_2 = Math.round(input_2 / 86400);
+		var inaday_2 = (input_2 - days_2 * 86400) * 1000;
+		d_0 = new Date();
+		utc = Math.abs(d_0.getTimezoneOffset() * 60000);
+		var d_2 = new Date(utc + inaday_2);
+
+		if (days_2 > 1) {
+			day_time = days_2 + " days ";
+		} else {
+			day_time = days_2 + " day ";
+		}
+
+		if (d_2.getHours() > 1)
+			hour_time = d_2.getHours() + " hours ";
+		else
+			hour_time = d_2.getHours() + " hour ";
+		if (d_2.getMinutes() > 1)
+			minute_time = d_2.getMinutes() + " minutes ";
+		else
+			minute_time = d_2.getMinutes() + " minute ";
+		if (d_2.getSeconds() > 1)
+			second_time = d_2.getSeconds() + " seconds ";
+		else
+			second_time = d_2.getSeconds() + " second ";
+		if (input_2 >= 0)
+			document.getElementById("clock2").innerHTML = day_time + hour_time
+					+ minute_time + second_time;
+		else {
+
+			clearInterval(myvar2);
+			document.getElementById("clock2_p").disabled = true;
+			document.getElementById("clock2_reset").disabled = true;
+		}
+	};
+</script>
+</head>
+<body bgcolor="#E6E6FA">
+	<div id="input" style="width: 25%; margin: 0 auto; margin-top: 30px;">
+
+		<input id="inseconds" name="inseconds" type="text"
+			placeholder="in seconds"> <input id="timerset" type="submit"
+			value="timer set" onclick="call1();  callread(); call2();">
+	</div>
+
+	<div id="clocks" style="width: 50%; margin: 0 auto; margin-top: 100px;">
+
+		<div id="clock1a" style="width: 450px; display: table-cell;">
+			<p id="clock1">Timer1 COUNTUP</p>
+			<button id="clock1_reset" onclick="call1_reset()" disabled>reset</button>
+			<button id="clock1_p" onclick="call1_p()" disabled>pause</button>
+		</div>
+
+		<div id="clock2a" style="display: table-cell;">
+			<p id="clock2">Timer2 COUNTDOWN</p>
+			<button id="clock2_reset" onclick="call2_reset()" disabled>reset</button>
+			<button id="clock2_p" onclick="call2_p()" disabled>pause</button>
+		</div>
+	</div>
+</body>
+</html>
