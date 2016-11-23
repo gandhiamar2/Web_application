@@ -20,12 +20,13 @@
 	var hour_time;
 	var minute_time;
 	var second_time;
-
+	// read the text value
 	function callread() {
 
 		userinput = document.getElementById("inseconds").value;
 
 	}
+	//countup timer function setinterval
 	function call1() {
 		clearInterval(myvar1);
 		myvar1 = setInterval(myTimer1, 1000);
@@ -46,15 +47,17 @@
 
 		}
 	};
+	//countup timer reset
 	function call1_reset() {
 
 		clearInterval(myvar1);
-		document.getElementById("clock1").innerHTML = 0 + " days" + 0
-				+ " Hours" + 0 + " Minutes" + 0 + " Seconds";
+		document.getElementById("clock1").innerHTML = 0 + " day " + 0
+		+ " hour " + 0 + " minute " + 0 + " second ";
 		input_1 = 0;
 
 		document.getElementById("clock1_p").disabled = true;
 	};
+	//countup timer pause
 	function call1_p() {
 		clearInterval(myvar1);
 		document.getElementById("clock1_p")
@@ -63,6 +66,7 @@
 		document.getElementById("clock1_p").id = "clock1_s";
 		document.getElementById("clock1_reset").disabled = true;
 	};
+	//countup timer start
 	function call1_s() {
 		myvar1 = setInterval(myTimer1, 1000);
 		document.getElementById("clock1_s")
@@ -71,6 +75,7 @@
 		document.getElementById("clock1_s").id = "clock1_p";
 		document.getElementById("clock1_reset").disabled = false;
 	};
+	//countdown timer function setinterval
 	function call2() {
 
 		clearInterval(myvar2);
@@ -91,15 +96,17 @@
 		}
 
 	};
+	//countdown timer reset
 	function call2_reset() {
 
 		clearInterval(myvar2);
-		document.getElementById("clock2").innerHTML = 0 + " days" + 0
-				+ " Hours" + 0 + " Minutes" + 0 + " Seconds";
+		document.getElementById("clock2").innerHTML = 0 + " day " + 0
+				+ " hour " + 0 + " minute " + 0 + " second ";
 		input_2 = userinput;
 
 		document.getElementById("clock2_p").disabled = true;
 	};
+	//countdown timer pause
 	function call2_p() {
 		clearInterval(myvar2);
 		document.getElementById("clock2_p")
@@ -108,6 +115,7 @@
 		document.getElementById("clock2_p").id = "clock2_s";
 		document.getElementById("clock2_reset").disabled = true;
 	};
+	//countdown timer start
 	function call2_s() {
 		myvar2 = setInterval(myTimer2, 1000);
 		document.getElementById("clock2_s")
@@ -116,7 +124,7 @@
 		document.getElementById("clock2_s").id = "clock2_p";
 		document.getElementById("clock2_reset").disabled = false;
 	};
-
+//countup timer
 	function myTimer1() {
 		input_1 = input_1 + 1; // as this is countup variable input_1 is initialised at 0 and linearly incremented till given seconds is matched 
 		var days_1 = Math.round(input_1 / 86400); //no.of rounded days involved in given input of seconds is identified
@@ -155,6 +163,7 @@
 			document.getElementById("clock1_reset").disabled = true;
 		}
 	};
+	//count down timer
 	function myTimer2() {
 		input_2 = input_2 - 1;
 		var days_2 = Math.round(input_2 / 86400);
